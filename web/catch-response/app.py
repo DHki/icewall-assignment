@@ -15,5 +15,10 @@ def index():
     else:
         return ret_form
 
+@app.route('/test')
+def test():
+    req_method = request.method
+    return f'You sended request as {req_method}'
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)
