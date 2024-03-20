@@ -15,7 +15,7 @@ def index():
     else:
         return ret_form
 
-@app.route('/test')
+@app.route('/test', methods=['GET', 'POST'])
 def test():
     req_method = request.method
     return f'You sended request as {req_method}'
