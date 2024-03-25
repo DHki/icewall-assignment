@@ -1,9 +1,10 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, session
 from secret import ADMIN_COOKIE, FLAG
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 
 app = Flask(__name__)
+app.secret_key = 'this is secret key'
 
 def read_url(url):
     
@@ -55,6 +56,25 @@ def flag():
             return '<script>alert("wrong??");history.go(-1);</script>'
 
         return '<script>alert("good");history.go(-1);</script>'
+
+@app.route("/test", methods=['GET', 'POST'])
+def test():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        
+        if username == 'admin' and password == '123':
+            session['user'] = 'admin'
+    
+    if 'user' in session:
+        user = session['user']
+    else:
+        user = 'guest'
+    
+    return render_template('login.html', user=user)
+            
+
+        
 
 
 if __name__ == '__main__':
