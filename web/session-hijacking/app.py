@@ -43,7 +43,7 @@ def index():
         
 @app.route("/vuln")
 def vuln():
-    param = request.args.get("param", "")
+    param = request.args.get("param", "/vuln?param=your input")
     return param
 
 @app.route("/req", methods=["GET", "POST"])
